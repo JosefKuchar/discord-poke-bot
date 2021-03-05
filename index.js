@@ -32,16 +32,18 @@ client.on('message', msg => {
 
     if (user) {
       if (user.voice.channel) {
+        const orgId = user.voice.channelID;
+
         msg.channel.send(`👉 <@${user.id}>`);
         if (args.length > 1) {
           const count = parseInt(args[1]);
           if (count > 0 && count <= 10) {
-            moveUser(count, user);
+            moveUser(count, user, orgId);
           } else {
             msg.reply('Dej tam normální počet týpku!');
           }
         } else {
-          moveUser(5, user);
+          moveUser(5, user, orgId);
         }
       } else {
         msg.reply('Týpek není připojenej v žádným channelu!');
@@ -52,15 +54,16 @@ client.on('message', msg => {
   }
 });
 
-function moveUser(count, user) {
+function moveUser(count, user, orgId) {
   if (count === 0) {
+    user.voice.setChannel(orgId);
     return;
   }
 
   setTimeout(() => {
     user.voice.setChannel(count % 2 == 0 ? id1 : id2)
 
-    moveUser(count - 1, user);
+    moveUser(count - 1, user, orgId);
   }, 1);
 }
 
