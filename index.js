@@ -31,17 +31,23 @@ client.on('message', msg => {
     const user = msg.mentions.members.first();
 
     if (user) {
-      msg.reply('👉 ' + user.displayName);
-      if (args.length > 1) {
-        const count = parseInt(args[1]);
-        if (count > 0 && count <= 10) {
-          moveUser(count, user);
+      if (user.voice.channel) {
+        msg.channel.send(`👉 <@${user.id}>`);
+        if (args.length > 1) {
+          const count = parseInt(args[1]);
+          if (count > 0 && count <= 10) {
+            moveUser(count, user);
+          } else {
+            msg.reply('Dej tam normální počet týpku!');
+          }
         } else {
-          msg.reply('Dej tam normální počet týpku!');
+          moveUser(5, user);
         }
       } else {
-        moveUser(5, user);
+        msg.reply('Týpek není připojenej v žádným channelu!');
       }
+    } else {
+      msg.reply('Musíš napsat jméno!');
     }
   }
 });
