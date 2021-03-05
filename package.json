@@ -1,0 +1,12 @@
+{
+  "name": "discord-poke-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JosefKuchar/discord-poke-bot",
+  "author": "Josef Kuchař <josef.kuchar267@gmail.com>",
+  "license": "GPLv3",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
