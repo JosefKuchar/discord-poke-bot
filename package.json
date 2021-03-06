@@ -6,7 +6,9 @@
   "author": "Josef Kuchař <josef.kuchar267@gmail.com>",
   "license": "GPLv3",
   "dependencies": {
+    "@keyv/sqlite": "^2.0.2",
     "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "keyv": "^4.0.3"
   }
 }
