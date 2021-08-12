@@ -3,7 +3,11 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const client = new Discord.Client();
+const client = new Discord.Client({
+  ws: {
+    intents: Discord.Intents.ALL
+  }
+});
 
 // Voice channel ids
 const id1 = '817359734893445170';
@@ -50,6 +54,20 @@ client.on('message', msg => {
       }
     } else {
       msg.reply('Musíš napsat jméno!');
+    }
+  }
+});
+
+client.on('guildMemberUpdate', async (_, newMember) => {
+  // Check if poke role was added
+  const role = newMember.roles.cache.find(role => role.name === 'Poke')
+  if (role) {
+    // Remove poke role
+    newMember.roles.remove(role);
+
+    if (newMember.voice.channel) {
+      const orgId = newMember.voice.channelID;
+      moveUser(9, newMember, orgId);
     }
   }
 });
