@@ -60,7 +60,7 @@ client.on('message', msg => {
 
 client.on('guildMemberUpdate', async (_, newMember) => {
   // Check if poke role was added
-  const role = newMember.roles.cache.find(role => role.name === 'Poke')
+  const role = newMember.roles.cache.find(role => role.name === '👉')
   if (role) {
     // Remove poke role
     newMember.roles.remove(role);
