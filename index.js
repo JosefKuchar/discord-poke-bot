@@ -58,12 +58,13 @@ client.on('message', msg => {
   }
 });
 
-client.on('guildMemberUpdate', async (_, newMember) => {
+client.on('guildMemberUpdate', async (oldMember, newMember) => {
   // Check if poke role was added
-  const role = newMember.roles.cache.find(role => role.name === '👉')
-  if (role) {
-    // Remove poke role
-    newMember.roles.remove(role);
+  const o = oldMember.roles.cache.find(role => role.name === '👉');
+  const n = newMember.roles.cache.find(role => role.name === '👉');
+  if (o && !n) {
+    // Add poke role back
+    newMember.roles.add(o);
 
     if (newMember.voice.channel) {
       const orgId = newMember.voice.channelID;
